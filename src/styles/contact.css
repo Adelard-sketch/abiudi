@@ -77,12 +77,21 @@
 }
 
 @media (max-width: 768px) {
+    .contactPage {
+        padding-top: 64px;
+        padding-bottom: 72px;
+    }
+
     .contactLayout {
         grid-template-columns: 1fr;
-        gap: 52px;
+        gap: 40px;
     }
 
     .contactEmail {
-        font-size: clamp(1.5rem, 7vw, 2.3rem);
+        display: flex;
+        align-items: flex-start;
+        font-size: clamp(1.25rem, 7vw, 2.3rem);
+        overflow-wrap: anywhere;
+        word-break: break-word;
     }
 }

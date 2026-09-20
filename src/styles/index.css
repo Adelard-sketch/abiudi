@@ -31,6 +31,14 @@ html {
 }
 
 body {
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
     background: var(--paper);
     color: var(--ink);
 }
@@ -95,11 +103,16 @@ body {
     height: 100%;
     object-fit: cover;
     object-position: center 30%;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.7s ease;
 }
 
-.heroImage.is-transitioning {
+.heroImage--next,
+.heroImage.is-hidden {
     opacity: 0;
+}
+
+.heroImage.is-visible {
+    opacity: 1;
 }
 
 /* Darkens the left for legible text and the bottom for the roles bar */
@@ -117,22 +130,25 @@ body {
         ),
         linear-gradient(
             0deg,
-            rgba(10, 14, 28, 0.55) 0%,
+            rgba(10, 14, 28, 0.28) 0%,
             rgba(10, 14, 28, 0) 38%
         );
 }
 
 .heroContent {
-    align-self: end;
-    max-width: 590px;
-    margin-bottom: clamp(12px, 2vw, 28px);
+    position: absolute;
+    left: clamp(28px, 4.5vw, 64px);
+    bottom: clamp(132px, 15vh, 170px);
+    z-index: 2;
+
+    max-width: 470px;
 }
 
 .heroTitle {
     max-width: 15ch;
 
     font-family: var(--serif);
-    font-size: clamp(2.5rem, 5.2vw, 4.9rem);
+    font-size: clamp(2.35rem, 4.6vw, 4.35rem);
     font-weight: 400;
     line-height: 0.98;
     letter-spacing: -0.01em;
@@ -553,7 +569,7 @@ body {
     .hero {
         margin-top: 14px;
         border-radius: 24px;
-        min-height: 640px;
+        min-height: 680px;
     }
 
     .heroImage {
@@ -564,15 +580,17 @@ body {
         background:
             linear-gradient(
                 0deg,
-                rgba(10, 14, 28, 0.72) 0%,
-                rgba(10, 14, 28, 0.44) 40%,
+                rgba(10, 14, 28, 0.62) 0%,
+                rgba(10, 14, 28, 0.36) 40%,
                 rgba(10, 14, 28, 0.06) 100%
             );
     }
 
     .heroContent {
-        max-width: 520px;
-        margin-bottom: 10px;
+        max-width: 430px;
+        right: 22px;
+        bottom: 166px;
+        left: 22px;
     }
 
     .heroRoles li {
@@ -609,6 +627,10 @@ body {
     .serviceContent {
         padding: 22px 22px 26px;
     }
+
+    .servicesBooking {
+        padding: 52px 24px 56px;
+    }
 }
 
 
@@ -620,22 +642,32 @@ body {
 
     .hero {
         padding: 22px;
+        min-height: 700px;
     }
 
     .heroActions {
-        flex-direction: column;
-        align-items: stretch;
+        flex-wrap: nowrap;
+        gap: 8px;
     }
 
     .heroButton,
-    .heroLink,
-    .bookingButton {
-        width: 100%;
+    .heroLink {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0 12px;
+        font-size: 0.86rem;
+        white-space: nowrap;
     }
 
     .heroRoles li {
         font-size: 0.88rem;
         white-space: normal;
+    }
+
+    .heroContent {
+        right: 22px;
+        bottom: 178px;
+        left: 22px;
     }
 
     .portfolio-footer {

@@ -97,6 +97,11 @@
 }
 
 @media (max-width: 768px) {
+    .aboutPage {
+        padding-top: 64px;
+        padding-bottom: 72px;
+    }
+
     .aboutLayout {
         grid-template-columns: 1fr;
         gap: 36px;
@@ -109,5 +114,9 @@
 
     .aboutDetails {
         grid-template-columns: 1fr;
+    }
+
+    .aboutContent h2 {
+        font-size: clamp(2.8rem, 14vw, 5rem);
     }
 }

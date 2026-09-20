@@ -105,9 +105,10 @@ function initGallery() {
 }
 
 function initHeroSlideshow() {
-    const heroImage = document.querySelector(".heroImage");
+    let currentImage = document.querySelector(".heroImage--current");
+    let nextImage = document.querySelector(".heroImage--next");
 
-    if (!heroImage || heroSlides.length < 2) return;
+    if (!currentImage || !nextImage || heroSlides.length < 2) return;
 
     heroSlides.slice(1).forEach(({ src }) => {
         const preloadedImage = new Image();
@@ -120,17 +121,27 @@ function initHeroSlideshow() {
     const showNextSlide = () => {
         currentSlide = (currentSlide + 1) % heroSlides.length;
         const nextSlide = heroSlides[currentSlide];
+        let hasTransitioned = false;
 
-        heroImage.classList.add("is-transitioning");
+        const completeTransition = () => {
+            if (hasTransitioned) return;
+            hasTransitioned = true;
 
-        window.setTimeout(() => {
-            heroImage.src = nextSlide.src;
-            heroImage.alt = nextSlide.alt;
+            nextImage.classList.add("is-visible");
+            currentImage.classList.add("is-hidden");
 
-            window.requestAnimationFrame(() => {
-                heroImage.classList.remove("is-transitioning");
-            });
-        }, 350);
+            window.setTimeout(() => {
+                const previousImage = currentImage;
+                currentImage = nextImage;
+                nextImage = previousImage;
+            }, 700);
+        };
+
+        nextImage.onload = completeTransition;
+        nextImage.src = nextSlide.src;
+        nextImage.alt = nextSlide.alt;
+
+        if (nextImage.complete) completeTransition();
     };
 
     const startRotation = () => {

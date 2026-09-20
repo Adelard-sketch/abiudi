@@ -125,7 +125,7 @@
         align-items: flex-start;
         justify-content: center;
         gap: 20px;
-        padding: 30px;
+        padding: clamp(24px, 8vw, 40px);
         background: #f5f2ec;
         opacity: 0;
         pointer-events: none;
@@ -142,9 +142,10 @@
     .mobile-menu a {
         color: #171717;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 48px;
+        font-size: clamp(2.5rem, 12vw, 4rem);
         font-weight: 400;
         letter-spacing: -.05em;
         text-decoration: none;
+        line-height: 1;
     }
 }
