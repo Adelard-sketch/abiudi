@@ -233,9 +233,14 @@ body {
 ========================================= */
 
 .heroRoles {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+
     display: flex;
     flex-wrap: wrap;
-    margin-top: clamp(36px, 5vw, 64px);
 
     list-style: none;
 
@@ -580,9 +585,9 @@ body {
         background:
             linear-gradient(
                 0deg,
-                rgba(10, 14, 28, 0.62) 0%,
-                rgba(10, 14, 28, 0.36) 40%,
-                rgba(10, 14, 28, 0.06) 100%
+                rgba(10, 14, 28, 0.4) 0%,
+                rgba(10, 14, 28, 0.2) 40%,
+                rgba(10, 14, 28, 0.02) 100%
             );
     }
 
@@ -608,6 +613,10 @@ body {
 
     .heroRoles li:nth-child(n + 3) {
         border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .heroRoles {
+        border-radius: 0 0 24px 24px;
     }
 
     .servicesHeader {
