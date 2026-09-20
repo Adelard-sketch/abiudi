@@ -61,6 +61,16 @@
     font-size: 0.95rem;
 }
 
+.contactWhatsapp {
+    color: #fff;
+    font-size: 0.95rem;
+    text-decoration: none;
+}
+
+.contactWhatsapp:hover {
+    text-decoration: underline;
+}
+
 .contactAction {
     display: inline-flex;
     align-items: center;

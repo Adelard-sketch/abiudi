@@ -135,6 +135,58 @@ body {
         );
 }
 
+.heroSocials {
+    position: absolute;
+    top: clamp(24px, 4vw, 56px);
+    right: clamp(28px, 4.5vw, 64px);
+    z-index: 4;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.heroSocials a {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    border-radius: 50%;
+    color: #fff;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.heroSocials a:hover {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+}
+
+.heroSocials a:focus-visible {
+    outline-color: #fff;
+}
+
+.heroSocials svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+}
+
+.heroSocials a:nth-child(2) svg path:last-child,
+.heroSocials a:nth-child(3) svg path {
+    fill: currentColor;
+    stroke: none;
+}
+
 .heroContent {
     position: absolute;
     left: clamp(28px, 4.5vw, 64px);
@@ -596,6 +648,16 @@ body {
         right: 22px;
         bottom: 166px;
         left: 22px;
+    }
+
+    .heroSocials {
+        top: 22px;
+        right: 22px;
+    }
+
+    .heroSocials a {
+        width: 36px;
+        height: 36px;
     }
 
     .heroRoles li {
