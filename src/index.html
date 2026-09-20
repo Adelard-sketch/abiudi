@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Abiudi — Artist, Producer & Builder</title>
+
+    <meta
+        name="description"
+        content="Abiudi — Instrumentalist, music instructor, producer, live recorder and sound engineer. Book a session for production, live sound, lessons or recording."
+    >
+
+    <!-- Fonts: Instrument Serif (headlines) + Figtree (body). System fallbacks are set in CSS. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+    >
+
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/navbar.css">
+    <link rel="stylesheet" href="./styles/about.css">
+    <link rel="stylesheet" href="./styles/contact.css">
+</head>
+
+<body>
+
+    <main class="portfolio-home" id="home" data-page="home">
+
+        <div data-component="navbar"></div>
+
+        <section class="hero" aria-labelledby="hero-title">
+
+            <img
+                class="heroImage"
+                src="./assets/heroCover.jpeg"
+                alt="Abiudi performing"
+                fetchpriority="high"
+            >
+            <div class="heroShade" aria-hidden="true"></div>
+
+            <div class="heroContent">
+                <h1 id="hero-title" class="heroTitle">
+                    Helping artists and audiences experience music at its best.
+                </h1>
+
+                <p class="heroLead">
+                    Production, live sound, lessons and recording for artists,
+                    events and rooms of every size.
+                </p>
+
+                <div class="heroActions">
+                    <button type="button" class="heroButton">Book a session</button>
+                    <a class="heroLink" href="#service">View services</a>
+                </div>
+            </div>
+
+            <ul class="heroRoles" aria-label="What Abiudi does">
+                <li>Instrumentalist</li>
+                <li>Music instructor</li>
+                <li>Producer</li>
+                <li>Live recorder</li>
+                <li>Sound engineer</li>
+            </ul>
+
+        </section>
+
+    </main>
+
+    <section class="services" id="service" aria-labelledby="services-title">
+
+        
+        <div class="servicesGrid">
+
+            <article class="serviceCard">
+                <div class="serviceImage">
+                    <img
+                        src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=900&q=85"
+                        alt="Mixing console and studio monitors in a recording studio"
+                        loading="lazy"
+                    >
+                </div>
+                <div class="serviceContent">
+                    <h3>Music production</h3>
+                    <p>Shape ideas into focused, expressive tracks with a sound that feels like you.</p>
+                </div>
+            </article>
+
+            <article class="serviceCard">
+                <div class="serviceImage">
+                    <img
+                        src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?auto=format&fit=crop&w=900&q=85"
+                        alt="Sound engineer working at a live audio mixing desk"
+                        loading="lazy"
+                    >
+                </div>
+                <div class="serviceContent">
+                    <h3>Live sound engineering</h3>
+                    <p>Reliable, musical sound for concerts, events, rehearsals, and intimate rooms.</p>
+                </div>
+            </article>
+
+            <article class="serviceCard">
+                <div class="serviceImage">
+                    <img
+                        src="https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&w=900&q=85"
+                        alt="Electric guitar ready for an instrumental lesson"
+                        loading="lazy"
+                    >
+                </div>
+                <div class="serviceContent">
+                    <h3>Instrumental instruction</h3>
+                    <p>Practical, patient lessons that build confidence, technique, and musical instinct.</p>
+                </div>
+            </article>
+
+            <article class="serviceCard">
+                <div class="serviceImage">
+                    <img
+                        src="https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=85"
+                        alt="Studio microphone and headphones prepared for audio recording"
+                        loading="lazy"
+                    >
+                </div>
+                <div class="serviceContent">
+                    <h3>Audio recording</h3>
+                    <p>Clean, detailed recordings that preserve the character of every voice and instrument.</p>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="booking servicesBooking" aria-labelledby="booking-title">
+            <h2 id="booking-title">Have a session, show, or track in mind?</h2>
+            <div class="bookingAside">
+                <p>Tell me what you're working on and I'll reply with availability and next steps.</p>
+                <button type="button" class="bookingButton">Book a session</button>
+            </div>
+        </div>
+    </section>
+
+    <div data-component="about"></div>
+
+    <div data-component="contact"></div>
+
+    <footer class="portfolio-footer">
+        <p>&copy; 2026 Abiudi. All rights reserved.</p>
+        <p>
+            Designed by
+            <a
+                href="https://www.abiudi.com"
+                target="_blank"
+                rel="noopener noreferrer"
+            >Adelard🔹</a>
+        </p>
+    </footer>
+
+    <script type="module" src="./js/index.js"></script>
+
+</body>
+</html>

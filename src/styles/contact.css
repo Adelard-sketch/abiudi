@@ -1,0 +1,88 @@
+.contactPage {
+    padding: clamp(76px, 10vw, 140px) var(--gutter);
+    background: var(--navy);
+    color: #fff;
+    scroll-margin-top: 16px;
+}
+
+.contactPage .contactIndex {
+    color: rgba(255, 255, 255, 0.62);
+}
+
+.contactLayout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: clamp(36px, 8vw, 140px);
+    align-items: end;
+}
+
+.contactLayout h2 {
+    max-width: 12ch;
+}
+
+.contactLead {
+    max-width: 42ch;
+    margin-top: 28px;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.55;
+}
+
+.contactDetails {
+    display: grid;
+    gap: 18px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.contactEmail {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    color: #fff;
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    text-decoration: none;
+}
+
+.contactEmail span,
+.contactAction span {
+    transition: transform 0.25s ease;
+}
+
+.contactEmail:hover span,
+.contactAction:hover span {
+    transform: translate(4px, -4px);
+}
+
+.contactDetails p {
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.95rem;
+}
+
+.contactAction {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .contactLayout {
+        grid-template-columns: 1fr;
+        gap: 52px;
+    }
+
+    .contactEmail {
+        font-size: clamp(1.5rem, 7vw, 2.3rem);
+    }
+}

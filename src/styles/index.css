@@ -1,0 +1,599 @@
+/* =========================================
+   TOKENS
+========================================= */
+
+:root {
+    --paper: #f5f2ec;
+    --mist: #e0ecf4;
+    --ink: #171717;
+    --navy: #101c46;
+    --blue: #2e5be7;
+    --blue-deep: #1f3d9a;
+
+    --muted: rgba(23, 23, 23, 0.68);
+
+    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --sans: "Figtree", "Trebuchet MS", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --gutter: clamp(16px, 3.8vw, 56px);
+    --radius-lg: 28px;
+    --radius-md: 20px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.hero,
+.services,
+.booking,
+.portfolio-footer {
+    font-family: var(--sans);
+}
+
+:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.portfolio-home {
+    padding: 20px var(--gutter) 28px;
+    background:
+        linear-gradient(
+            rgba(245, 242, 236, 0.82),
+            rgba(245, 242, 236, 0.82)
+        ),
+        url("../assets/guitar.jpg") center / cover no-repeat;
+}
+
+
+/* =========================================
+   HERO
+   One full-width image, text on the left,
+   roles along the bottom edge.
+========================================= */
+
+.hero {
+    position: relative;
+    isolation: isolate;
+
+    display: grid;
+    grid-template-rows: 1fr auto;
+
+    min-height: clamp(580px, calc(100svh - 130px), 800px);
+    margin-top: 20px;
+    padding: clamp(28px, 4.5vw, 64px);
+
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background: #0c0c0c;
+    color: #fff;
+}
+
+.heroImage {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    transition: opacity 0.35s ease;
+}
+
+.heroImage.is-transitioning {
+    opacity: 0;
+}
+
+/* Darkens the left for legible text and the bottom for the roles bar */
+.heroShade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(10, 14, 28, 0.86) 0%,
+            rgba(10, 14, 28, 0.62) 42%,
+            rgba(10, 14, 28, 0.08) 78%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(10, 14, 28, 0.55) 0%,
+            rgba(10, 14, 28, 0) 38%
+        );
+}
+
+.heroContent {
+    align-self: end;
+    max-width: 720px;
+}
+
+.heroTitle {
+    max-width: 15ch;
+
+    font-family: var(--serif);
+    font-size: clamp(2.7rem, 6vw, 5.75rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+}
+
+.heroLead {
+    max-width: 46ch;
+    margin-top: 22px;
+
+    color: rgba(255, 255, 255, 0.86);
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.55;
+}
+
+.heroActions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-top: 32px;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.heroButton,
+.bookingButton,
+.heroLink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 52px;
+    padding: 0 30px;
+
+    border-radius: 999px;
+
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.heroButton {
+    border: 0;
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 12px 28px rgba(46, 91, 231, 0.4);
+}
+
+.heroButton:hover {
+    background: #4a72f0;
+    transform: translateY(-2px);
+}
+
+.heroButton:active {
+    transform: translateY(0);
+}
+
+.heroLink {
+    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    background: transparent;
+    color: #fff;
+}
+
+.heroLink:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+
+/* =========================================
+   HERO ROLES
+========================================= */
+
+.heroRoles {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: clamp(36px, 5vw, 64px);
+
+    list-style: none;
+
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.heroRoles li {
+    flex: 1 1 0;
+    padding: 16px 20px;
+
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.heroRoles li + li {
+    border-left: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+/* One page-load moment: the image settles, the text rises in */
+@media (prefers-reduced-motion: no-preference) {
+    .heroImage {
+        animation: heroSettle 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    .heroContent {
+        animation: heroRise 0.9s 0.15s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+}
+
+@keyframes heroSettle {
+    from { transform: scale(1.07); }
+    to   { transform: scale(1); }
+}
+
+@keyframes heroRise {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* =========================================
+   SERVICES
+========================================= */
+
+.services {
+    padding: clamp(72px, 9vw, 120px) var(--gutter) clamp(72px, 9vw, 120px);
+    background: var(--mist);
+    scroll-margin-top: 16px;
+}
+
+.servicesHeader {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 380px);
+    align-items: end;
+    gap: 24px 48px;
+
+    margin-bottom: clamp(36px, 5vw, 60px);
+}
+
+.servicesHeader h2 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 6.25rem);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+}
+
+.servicesHeader p {
+    color: var(--muted);
+    font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+    line-height: 1.55;
+}
+
+/* Alternating wide / narrow cards give the grid rhythm */
+.servicesGrid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.serviceCard {
+    display: flex;
+    flex-direction: column;
+    grid-column: span 6;
+    min-width: 0;
+
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background: var(--paper);
+}
+
+.serviceCard:nth-child(4n + 1),
+.serviceCard:nth-child(4n + 4) {
+    grid-column: span 7;
+}
+
+.serviceCard:nth-child(4n + 2),
+.serviceCard:nth-child(4n + 3) {
+    grid-column: span 5;
+}
+
+.serviceImage {
+    height: clamp(260px, 30vw, 420px);
+    overflow: hidden;
+    background: var(--ink);
+}
+
+.serviceImage img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.serviceContent {
+    padding: 26px 28px 30px;
+}
+
+.serviceContent h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 2.4vw, 2.3rem);
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.serviceContent p {
+    max-width: 44ch;
+    margin-top: 10px;
+
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.55;
+}
+
+.servicesBooking {
+    margin-top: clamp(48px, 7vw, 96px);
+}
+
+
+/* =========================================
+   BOOKING BAND
+========================================= */
+
+.booking {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: end;
+    gap: 32px clamp(32px, 6vw, 96px);
+
+    padding: clamp(64px, 8vw, 112px) var(--gutter);
+    background: var(--navy);
+    color: #fff;
+}
+
+.booking h2 {
+    max-width: 16ch;
+
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5.5vw, 4.75rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+}
+
+.bookingAside p {
+    max-width: 42ch;
+
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(1rem, 1.35vw, 1.15rem);
+    line-height: 1.55;
+}
+
+.bookingButton {
+    margin-top: 26px;
+
+    border: 0;
+    background: #fff;
+    color: var(--navy);
+}
+
+.bookingButton:hover {
+    background: var(--mist);
+    transform: translateY(-2px);
+}
+
+.bookingButton:focus-visible,
+.booking .heroLink:focus-visible {
+    outline-color: #fff;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.portfolio-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+
+    padding: 22px var(--gutter) 28px;
+
+    background: var(--navy);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.7);
+
+    font-size: 0.9rem;
+}
+
+.portfolio-footer a {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.portfolio-footer a:hover {
+    text-decoration: underline;
+}
+
+.portfolio-footer a:focus-visible {
+    outline-color: #fff;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .heroRoles {
+        border-radius: var(--radius-md);
+    }
+
+    .heroRoles li {
+        flex: 1 1 33%;
+        padding: 14px 16px;
+    }
+
+    .heroRoles li:nth-child(4) {
+        border-left: 0;
+    }
+
+    .heroRoles li:nth-child(n + 4) {
+        border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .servicesGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .serviceCard,
+    .serviceCard:nth-child(n) {
+        grid-column: auto;
+    }
+
+    .serviceImage {
+        height: clamp(220px, 34vw, 340px);
+    }
+
+    .booking {
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .portfolio-home {
+        padding-top: 14px;
+    }
+
+    .hero {
+        margin-top: 14px;
+        border-radius: 24px;
+        min-height: 640px;
+    }
+
+    .heroImage {
+        object-position: 62% center;
+    }
+
+    .heroShade {
+        background:
+            linear-gradient(
+                0deg,
+                rgba(10, 14, 28, 0.92) 0%,
+                rgba(10, 14, 28, 0.7) 45%,
+                rgba(10, 14, 28, 0.12) 100%
+            );
+    }
+
+    .heroRoles li {
+        flex: 1 1 50%;
+    }
+
+    .heroRoles li:nth-child(n) {
+        border-left: 0;
+        border-top: 0;
+    }
+
+    .heroRoles li:nth-child(even) {
+        border-left: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .heroRoles li:nth-child(n + 3) {
+        border-top: 1px solid rgba(255, 255, 255, 0.22);
+    }
+
+    .servicesHeader {
+        grid-template-columns: 1fr;
+    }
+
+    .servicesGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .serviceImage {
+        height: auto;
+        aspect-ratio: 16 / 10;
+    }
+
+    .serviceContent {
+        padding: 22px 22px 26px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .hero {
+        padding: 22px;
+    }
+
+    .heroActions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .heroButton,
+    .heroLink,
+    .bookingButton {
+        width: 100%;
+    }
+
+    .heroRoles li {
+        font-size: 0.88rem;
+        white-space: normal;
+    }
+
+    .portfolio-footer {
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .heroImage {
+        transition: none;
+    }
+}
