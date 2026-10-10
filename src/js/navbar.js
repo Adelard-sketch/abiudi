@@ -4,15 +4,16 @@ export function initNavbar() {
 
     if (!menuButton || !mobileMenu) return;
 
+    const desktopQuery = window.matchMedia("(min-width: 761px)");
+
     const setMenuState = (isOpen) => {
         mobileMenu.classList.toggle("open", isOpen);
         menuButton.classList.toggle("active", isOpen);
         menuButton.setAttribute("aria-expanded", String(isOpen));
-        menuButton.setAttribute(
-            "aria-label",
-            isOpen ? "Close menu" : "Open menu"
-        );
+        menuButton.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
         mobileMenu.setAttribute("aria-hidden", String(!isOpen));
+        // Stop the page scrolling behind the open menu
+        document.body.classList.toggle("menu-open", isOpen);
     };
 
     const closeMenu = () => setMenuState(false);
@@ -30,5 +31,10 @@ export function initNavbar() {
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "Escape") closeMenu();
+    });
+
+    // Rotating a tablet or widening the window shouldn't leave the menu stuck open
+    desktopQuery.addEventListener("change", (event) => {
+        if (event.matches) closeMenu();
     });
 }

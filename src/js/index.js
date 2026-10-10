@@ -8,24 +8,9 @@ const componentPaths = Object.freeze({
     contact: "./pages/contact.html"
 });
 
-const heroSlides = Object.freeze([
-    {
-        src: "./assets/heroCover.jpeg",
-        alt: "Abiudi performing"
-    },
-    {
-        src: "./assets/abiudiMain.jpeg",
-        alt: "Abiudi playing guitar during a performance"
-    },
-    {
-        src: "./assets/abiudiMain2.jpeg",
-        alt: "Abiudi holding an electric guitar"
-    },
-    {
-        src: "./assets/contactback.jpeg",
-        alt: "Abiudi with a guitar in a studio setting"
-    }
-]);
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Components ---------- */
 
 async function loadComponent(mount) {
     const componentName = mount.dataset.component;
@@ -49,135 +34,140 @@ async function loadComponent(mount) {
     }
 }
 
-async function loadComponents() {
+function loadComponents() {
     const mounts = [...document.querySelectorAll("[data-component]")];
-
-    await Promise.all(mounts.map(loadComponent));
+    return Promise.all(mounts.map(loadComponent));
 }
 
-function initGallery() {
-    const galleryItems = document.querySelectorAll(".gallery-image");
-    const supportsHover = window.matchMedia("(pointer: fine)").matches;
-
-    galleryItems.forEach((item, index) => {
-        item.style.transitionDelay = `${index * 180}ms`;
-
-        const image = item.querySelector("img");
-
-        if (!image || !supportsHover) return;
-
-        item.addEventListener("mousemove", (event) => {
-            const rect = item.getBoundingClientRect();
-            if (!rect.width || !rect.height) return;
-
-            const x = (event.clientX - rect.left) / rect.width;
-            const y = (event.clientY - rect.top) / rect.height;
-            const moveX = (x - 0.5) * 8;
-            const moveY = (y - 0.5) * 8;
-
-            image.style.transform =
-                `scale(1.06) translate(${moveX}px, ${moveY}px)`;
-        });
-
-        item.addEventListener("mouseleave", () => {
-            image.style.transform = "scale(1) translate(0, 0)";
-        });
-    });
-
-    if (!("IntersectionObserver" in window)) {
-        galleryItems.forEach((item) => item.classList.add("visible"));
-        return;
+/* Run each init on its own so one failure can't stop the rest */
+function safeInit(name, init) {
+    try {
+        init();
+    } catch (error) {
+        console.error(`Unable to initialise ${name}.`, error);
     }
-
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) return;
-
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-            });
-        },
-        { threshold: 0.12 }
-    );
-
-    galleryItems.forEach((item) => observer.observe(item));
 }
 
-function initHeroSlideshow() {
-    let currentImage = document.querySelector(".heroImage--current");
-    let nextImage = document.querySelector(".heroImage--next");
+/* ---------- Page loader ----------
+   Lifts once the components and the cover photo are ready,
+   shows for at least 700ms, and never for more than 2.5s. */
 
-    if (!currentImage || !nextImage || heroSlides.length < 2) return;
+function waitForImage(img) {
+    if (!img || img.complete) return Promise.resolve();
+    return new Promise((resolve) => {
+        img.addEventListener("load", resolve, { once: true });
+        img.addEventListener("error", resolve, { once: true });
+    });
+}
 
-    heroSlides.slice(1).forEach(({ src }) => {
-        const preloadedImage = new Image();
-        preloadedImage.src = src;
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function hideLoader() {
+    const loader = document.getElementById("pageLoader");
+    document.body.classList.remove("loading");
+
+    if (!loader) return;
+    loader.classList.add("hidden");
+    loader.addEventListener("transitionend", () => loader.remove(), { once: true });
+    setTimeout(() => loader.remove(), 800);
+}
+
+/* ---------- Scroll to top ---------- */
+
+function initScrollToTop() {
+    const button = document.getElementById("scrollToTop");
+    if (!button) return;
+
+    let ticking = false;
+
+    const update = () => {
+        button.classList.toggle("visible", window.scrollY > 600);
+        ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(update);
+    }, { passive: true });
+
+    button.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
     });
 
-    let currentSlide = 0;
-    let rotationTimer;
+    update();
+}
 
-    const showNextSlide = () => {
-        currentSlide = (currentSlide + 1) % heroSlides.length;
-        const nextSlide = heroSlides[currentSlide];
-        let hasTransitioned = false;
+/* ---------- Credits card counters ---------- */
 
-        const completeTransition = () => {
-            if (hasTransitioned) return;
-            hasTransitioned = true;
+function initCreditCounters() {
+    const stats = [...document.querySelectorAll(".creditStat")];
+    if (!stats.length || prefersReducedMotion || !("IntersectionObserver" in window)) return;
 
-            nextImage.classList.add("is-visible");
-            currentImage.classList.add("is-hidden");
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
-            window.setTimeout(() => {
-                const previousImage = currentImage;
-                currentImage = nextImage;
-                nextImage = previousImage;
-            }, 700);
+    const countUp = (stat, delay) => {
+        const output = stat.querySelector(".creditStat-number");
+        const target = Number.parseInt(stat.dataset.number, 10);
+        if (!output || Number.isNaN(target)) return;
+
+        const duration = 1400;
+        let start;
+
+        const frame = (now) => {
+            start ??= now;
+            const progress = Math.min((now - start) / duration, 1);
+            output.textContent = Math.round(target * easeOut(progress)).toLocaleString();
+            if (progress < 1) requestAnimationFrame(frame);
         };
 
-        nextImage.onload = completeTransition;
-        nextImage.src = nextSlide.src;
-        nextImage.alt = nextSlide.alt;
-
-        if (nextImage.complete) completeTransition();
+        setTimeout(() => requestAnimationFrame(frame), delay);
     };
 
-    const startRotation = () => {
-        if (rotationTimer) return;
-        rotationTimer = window.setInterval(showNextSlide, 5000);
-    };
-
-    const stopRotation = () => {
-        window.clearInterval(rotationTimer);
-        rotationTimer = undefined;
-    };
-
-    document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-            stopRotation();
-        } else {
-            startRotation();
-        }
+    // Start from zero only once we know the card will animate
+    stats.forEach((stat) => {
+        const output = stat.querySelector(".creditStat-number");
+        if (output) output.textContent = "0";
     });
 
-    startRotation();
+    const card = stats[0].closest(".creditCard") ?? stats[0];
+
+    const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        stats.forEach((stat, index) => countUp(stat, index * 120));
+        observer.disconnect();
+    }, { threshold: 0.35 });
+
+    observer.observe(card);
 }
 
+/* ---------- Boot ---------- */
+
 async function initializePage() {
+    const shownAt = performance.now();
+    const coverImage = document.querySelector(".coverPhoto img");
+    const coverReady = Promise.race([waitForImage(coverImage), wait(2500)]);
+
     await loadComponents();
 
-    initNavbar();
-    initAbout();
-    initContact();
-    initGallery();
-    initHeroSlideshow();
+    safeInit("navbar", initNavbar);
+    safeInit("about", initAbout);
+    safeInit("contact", initContact);
+    safeInit("scroll to top", initScrollToTop);
+    safeInit("credits", initCreditCounters);
+
+    await coverReady;
+
+    const elapsed = performance.now() - shownAt;
+    if (elapsed < 700) await wait(700 - elapsed);
+
+    hideLoader();
 }
 
 function start() {
     initializePage().catch((error) => {
-        console.error("Unable to initialize the page.", error);
+        console.error("Unable to initialise the page.", error);
+        hideLoader();
     });
 }
 

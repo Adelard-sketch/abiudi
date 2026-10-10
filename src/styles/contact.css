@@ -1,107 +1,119 @@
-.contactPage {
-    padding: clamp(76px, 10vw, 140px) var(--gutter);
-    background: var(--navy);
-    color: #fff;
-    scroll-margin-top: 16px;
+/* =========================================================
+   CONTACT — the back cover
+   Duotone studio photo with the headline set into it,
+   then a navy strip: booking, what to send, QR code.
+   ========================================================= */
+
+.contactPage { scroll-margin-top: 24px; }
+
+.backCover {
+    max-width: 1240px;
+    margin: 0 auto;
+    background: var(--ink);
+    color: var(--on-ink);
+    box-shadow: var(--print-shadow);
 }
 
-.contactPage .contactIndex {
-    color: rgba(255, 255, 255, 0.62);
+.backCover-photo {
+    position: relative;
+    min-height: clamp(380px, 42vw, 540px);
+}
+.backCover-photo figure {
+    position: absolute;
+    inset: 0;
+}
+.backCover-photo img { object-position: center 40%; }
+.backCover-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--ink) 0%, rgba(2, 16, 55, 0.55) 38%, rgba(2, 16, 55, 0) 70%);
+    pointer-events: none;
 }
 
-.contactLayout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-    gap: clamp(36px, 8vw, 140px);
-    align-items: end;
+.backCover-headline {
+    position: absolute;
+    left: clamp(24px, 4.6vw, 64px);
+    right: clamp(24px, 4.6vw, 64px);
+    bottom: clamp(20px, 3vw, 40px);
+    z-index: 1;
 }
-
-.contactLayout h2 {
-    max-width: 12ch;
-}
-
-.contactLead {
-    max-width: 42ch;
-    margin-top: 28px;
-    color: rgba(255, 255, 255, 0.74);
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.55;
-}
-
-.contactDetails {
-    display: grid;
-    gap: 18px;
-    padding-top: 22px;
-    border-top: 1px solid rgba(255, 255, 255, 0.24);
-}
-
-.contactEmail {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    color: #fff;
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 3vw, 3rem);
-    text-decoration: none;
-}
-
-.contactEmail span,
-.contactAction span {
-    transition: transform 0.25s ease;
-}
-
-.contactEmail:hover span,
-.contactAction:hover span {
-    transform: translate(4px, -4px);
-}
-
-.contactDetails p {
-    color: rgba(255, 255, 255, 0.64);
-    font-size: 0.95rem;
-}
-
-.contactWhatsapp {
-    color: #fff;
-    font-size: 0.95rem;
-    text-decoration: none;
-}
-
-.contactWhatsapp:hover {
-    text-decoration: underline;
-}
-
-.contactAction {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    color: #fff;
-    font-size: 0.78rem;
+.backCover-headline h2 {
+    max-width: 15ch;
+    font-size: clamp(2.3rem, 5.2vw, 4.6rem);
     font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+}
+.contactLead {
+    max-width: 44ch;
+    margin-top: 16px;
+    color: var(--on-ink-muted);
+    font-size: clamp(1.02rem, 1.4vw, 1.2rem);
 }
 
-@media (max-width: 768px) {
-    .contactPage {
-        padding-top: 64px;
-        padding-bottom: 72px;
-    }
+.backCover-strip {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 32px clamp(32px, 5vw, 72px);
+    padding: clamp(28px, 4vw, 44px) clamp(24px, 4.6vw, 64px) clamp(32px, 4.6vw, 56px);
+    border-top: 1px solid var(--on-ink-rule);
+}
 
-    .contactLayout {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
+.backCover-col h3 {
+    margin-bottom: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+.backCover-col p {
+    max-width: 34ch;
+    color: var(--on-ink-muted);
+}
 
-    .contactEmail {
-        display: flex;
-        align-items: flex-start;
-        font-size: clamp(1.25rem, 7vw, 2.3rem);
-        overflow-wrap: anywhere;
-        word-break: break-word;
-    }
+.contactPhone {
+    display: block;
+    width: fit-content;
+    margin-top: 14px;
+    color: var(--on-ink);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: underline;
+    text-decoration-color: var(--teal);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+}
+.contactPhone:hover { color: var(--teal); }
+
+.backCover-qr {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    align-self: start;
+}
+.qrTile {
+    width: 112px;
+    padding: 9px;
+    border-radius: 6px;
+    background: #fff;
+    color: var(--ink);
+}
+.qrTile svg { display: block; width: 100%; height: auto; }
+.backCover-qr p {
+    max-width: 14ch;
+    color: var(--on-ink-muted);
+    font-size: 0.8rem;
+    line-height: 1.35;
+    text-align: center;
+}
+
+@media (max-width: 860px) {
+    .backCover-strip { grid-template-columns: 1fr 1fr; }
+    /* A QR code isn't much use on the phone it would open */
+    .backCover-qr { display: none; }
+}
+
+@media (max-width: 560px) {
+    .backCover-photo { min-height: 520px; }
+    .backCover-strip { grid-template-columns: 1fr; }
 }
