@@ -108,9 +108,19 @@
 }
 
 @media (max-width: 860px) {
-    .backCover-strip { grid-template-columns: 1fr 1fr; }
-    /* A QR code isn't much use on the phone it would open */
-    .backCover-qr { display: none; }
+    .backCover-strip {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+    /* Show QR on mobile, full width below the two columns */
+    .backCover-qr {
+        display: grid;
+        grid-column: 1 / -1;
+        justify-items: center;
+        padding-top: 16px;
+        border-top: 1px solid var(--on-ink-rule);
+    }
+    .qrTile { width: 96px; }
 }
 
 @media (max-width: 560px) {

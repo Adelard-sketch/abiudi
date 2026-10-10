@@ -711,6 +711,7 @@ body:not(.loading) .signature { animation: write 1.5s 0.35s cubic-bezier(0.65, 0
 
     .coverAside { display: flex; margin-top: 12px; }
     .coverThumbs { margin-top: 8px; }
+    .signature { font-size: clamp(56px, 18vw, 104px); left: 3%; bottom: 1%; }
 
     .entry--thumb { grid-template-columns: 1fr; }
     .entry--thumb img { aspect-ratio: 16 / 10; }
